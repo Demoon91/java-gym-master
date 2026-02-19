@@ -14,21 +14,23 @@ public class Timetable {
         //сохраняем занятие в расписании
         DayOfWeek dayOfWeek = trainingSession.getDayOfWeek();
         TimeOfDay timeOfDay = trainingSession.getTimeOfDay();
-        if (timeOfDay.getHours() < 0 || timeOfDay.getHours() > 23
-                || timeOfDay.getMinutes() < 0 || timeOfDay.getMinutes() > 59) {
-            return;
+        try {
+            validationCheck(timeOfDay);
+            Map<TimeOfDay, List<TrainingSession>> daySchedule = timetable.get(dayOfWeek);
+            if (daySchedule == null) {
+                daySchedule = new TreeMap<>();
+                timetable.put(dayOfWeek, daySchedule);
+            }
+            List<TrainingSession> listSession = daySchedule.get(timeOfDay);
+            if (listSession == null) {
+                listSession = new ArrayList<>();
+                daySchedule.put(timeOfDay, listSession);
+            }
+            listSession.add(trainingSession);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: при добавлении " + trainingSession.getDayOfWeek());
+            System.out.println(e.getMessage());
         }
-        Map<TimeOfDay, List<TrainingSession>> daySchedule = timetable.get(dayOfWeek);
-        if (daySchedule == null) {
-            daySchedule = new TreeMap<>();
-            timetable.put(dayOfWeek, daySchedule);
-        }
-        List<TrainingSession> listSession = daySchedule.get(timeOfDay);
-        if (listSession == null) {
-            listSession = new ArrayList<>();
-            daySchedule.put(timeOfDay, listSession);
-        }
-        listSession.add(trainingSession);
     }
 
     public Map<TimeOfDay, List<TrainingSession>> getTrainingSessionsForDay(DayOfWeek dayOfWeek) {
@@ -78,6 +80,15 @@ public class Timetable {
         }
         Collections.sort(result);
         return new ArrayList<>(result);
+    }
+
+    public void validationCheck(TimeOfDay timeOfDay) {
+        if (timeOfDay.getHours() < 0 || timeOfDay.getHours() > 23
+                || timeOfDay.getMinutes() < 0 || timeOfDay.getMinutes() > 59) {
+            throw new IllegalArgumentException("Время введено не верно - часы должны быть (от 0 до 23)" +
+                    " ; минуты (от 0 до 59)" + " введено значение - " +
+                    timeOfDay.getHours() + ":" + timeOfDay.getMinutes());
+        }
     }
 
     @Override

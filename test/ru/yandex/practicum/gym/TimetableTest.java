@@ -15,8 +15,7 @@ public class TimetableTest {
 
         Group group = new Group("Акробатика для детей", Age.CHILD, 60);
         Coach coach = new Coach("Васильев", "Николай", "Сергеевич");
-        TrainingSession singleTrainingSession = new TrainingSession(group, coach,
-                DayOfWeek.MONDAY, new TimeOfDay(13, 0));
+        TrainingSession singleTrainingSession = new TrainingSession(group, coach, DayOfWeek.MONDAY, new TimeOfDay(13, 0));
 
         timetable.addNewTrainingSession(singleTrainingSession);
         Map<TimeOfDay, List<TrainingSession>> mondaySessions = timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY);
@@ -35,18 +34,14 @@ public class TimetableTest {
         Coach coach = new Coach("Васильев", "Николай", "Сергеевич");
 
         Group groupAdult = new Group("Акробатика для взрослых", Age.ADULT, 90);
-        TrainingSession thursdayAdultTrainingSession = new TrainingSession(groupAdult, coach,
-                DayOfWeek.THURSDAY, new TimeOfDay(20, 0));
+        TrainingSession thursdayAdultTrainingSession = new TrainingSession(groupAdult, coach, DayOfWeek.THURSDAY, new TimeOfDay(20, 0));
 
         timetable.addNewTrainingSession(thursdayAdultTrainingSession);
 
         Group groupChild = new Group("Акробатика для детей", Age.CHILD, 60);
-        TrainingSession mondayChildTrainingSession = new TrainingSession(groupChild, coach,
-                DayOfWeek.MONDAY, new TimeOfDay(13, 0));
-        TrainingSession thursdayChildTrainingSession = new TrainingSession(groupChild, coach,
-                DayOfWeek.THURSDAY, new TimeOfDay(13, 0));
-        TrainingSession saturdayChildTrainingSession = new TrainingSession(groupChild, coach,
-                DayOfWeek.SATURDAY, new TimeOfDay(10, 0));
+        TrainingSession mondayChildTrainingSession = new TrainingSession(groupChild, coach, DayOfWeek.MONDAY, new TimeOfDay(13, 0));
+        TrainingSession thursdayChildTrainingSession = new TrainingSession(groupChild, coach, DayOfWeek.THURSDAY, new TimeOfDay(13, 0));
+        TrainingSession saturdayChildTrainingSession = new TrainingSession(groupChild, coach, DayOfWeek.SATURDAY, new TimeOfDay(10, 0));
 
         timetable.addNewTrainingSession(mondayChildTrainingSession);
         timetable.addNewTrainingSession(thursdayChildTrainingSession);
@@ -76,8 +71,7 @@ public class TimetableTest {
 
         Group group = new Group("Акробатика для детей", Age.CHILD, 60);
         Coach coach = new Coach("Васильев", "Николай", "Сергеевич");
-        TrainingSession singleTrainingSession = new TrainingSession(group, coach,
-                DayOfWeek.MONDAY, new TimeOfDay(13, 0));
+        TrainingSession singleTrainingSession = new TrainingSession(group, coach, DayOfWeek.MONDAY, new TimeOfDay(13, 0));
 
         timetable.addNewTrainingSession(singleTrainingSession);
 
@@ -86,7 +80,6 @@ public class TimetableTest {
         assertEquals(1, mondaySessions.size());
         //Проверить, что за понедельник в 14:00 не вернулось занятий
         List<TrainingSession> otherMondaySessions = timetable.getTrainingSessionsForDayAndTime(DayOfWeek.MONDAY, new TimeOfDay(14, 0));
-        //assertEquals(null, otherMondaySessions);
         assertEquals(Collections.emptyList(), otherMondaySessions);
     }
 
@@ -96,14 +89,10 @@ public class TimetableTest {
 
         Group group = new Group("Акробатика для детей", Age.CHILD, 60);
         Coach coach = new Coach("Васильев", "Николай", "Сергеевич");
-        TrainingSession mondaySession = new TrainingSession(group, coach,
-                DayOfWeek.MONDAY, new TimeOfDay(-1, 0));
-        TrainingSession thuesdaySession = new TrainingSession(group, coach,
-                DayOfWeek.TUESDAY, new TimeOfDay(0, 0));
-        TrainingSession wednesdaySession = new TrainingSession(group, coach,
-                DayOfWeek.WEDNESDAY, new TimeOfDay(23, 0));
-        TrainingSession thursdaySession = new TrainingSession(group, coach,
-                DayOfWeek.THURSDAY, new TimeOfDay(24, 0));
+        TrainingSession mondaySession = new TrainingSession(group, coach, DayOfWeek.MONDAY, new TimeOfDay(-1, 0));
+        TrainingSession thuesdaySession = new TrainingSession(group, coach, DayOfWeek.TUESDAY, new TimeOfDay(0, 0));
+        TrainingSession wednesdaySession = new TrainingSession(group, coach, DayOfWeek.WEDNESDAY, new TimeOfDay(23, 0));
+        TrainingSession thursdaySession = new TrainingSession(group, coach, DayOfWeek.THURSDAY, new TimeOfDay(24, 0));
 
         timetable.addNewTrainingSession(mondaySession);
         timetable.addNewTrainingSession(thuesdaySession);
@@ -117,6 +106,8 @@ public class TimetableTest {
         assertEquals(2, testTimetable.size());
         assertEquals((new TimeOfDay(0, 0)), thuesdayTimeTraning);
         assertEquals((new TimeOfDay(23, 0)), wednesdayTimeTraning);
+        assertNull(testTimetable.get(DayOfWeek.MONDAY));
+        assertNull(testTimetable.get(DayOfWeek.THURSDAY));
     }
 
     @Test
@@ -125,14 +116,10 @@ public class TimetableTest {
 
         Group group = new Group("Акробатика для детей", Age.CHILD, 60);
         Coach coach = new Coach("Васильев", "Николай", "Сергеевич");
-        TrainingSession mondaySession = new TrainingSession(group, coach,
-                DayOfWeek.MONDAY, new TimeOfDay(11, -1));
-        TrainingSession thuesdaySession = new TrainingSession(group, coach,
-                DayOfWeek.TUESDAY, new TimeOfDay(11, 0));
-        TrainingSession wednesdaySession = new TrainingSession(group, coach,
-                DayOfWeek.WEDNESDAY, new TimeOfDay(11, 59));
-        TrainingSession thursdaySession = new TrainingSession(group, coach,
-                DayOfWeek.THURSDAY, new TimeOfDay(11, 60));
+        TrainingSession mondaySession = new TrainingSession(group, coach, DayOfWeek.MONDAY, new TimeOfDay(11, -1));
+        TrainingSession thuesdaySession = new TrainingSession(group, coach, DayOfWeek.TUESDAY, new TimeOfDay(11, 0));
+        TrainingSession wednesdaySession = new TrainingSession(group, coach, DayOfWeek.WEDNESDAY, new TimeOfDay(11, 59));
+        TrainingSession thursdaySession = new TrainingSession(group, coach, DayOfWeek.THURSDAY, new TimeOfDay(11, 60));
 
         timetable.addNewTrainingSession(mondaySession);
         timetable.addNewTrainingSession(thuesdaySession);
@@ -146,8 +133,8 @@ public class TimetableTest {
         assertEquals(2, testTimetable.size());
         assertEquals((new TimeOfDay(11, 0)), thuesdayTimeTraning);
         assertEquals((new TimeOfDay(11, 59)), wednesdayTimeTraning);
-
-        assertEquals(null, testTimetable.get(thursdaySession));
+        assertNull(testTimetable.get(DayOfWeek.MONDAY));
+        assertNull(testTimetable.get(DayOfWeek.THURSDAY));
     }
 
     @Test
@@ -159,10 +146,8 @@ public class TimetableTest {
         Group group1 = new Group("Акробатика для детей", Age.CHILD, 60);
         Group group2 = new Group("Йога", Age.ADULT, 90);
 
-        TrainingSession mondayChildSession = new TrainingSession(group1, coach1,
-                DayOfWeek.MONDAY, new TimeOfDay(12, 00));
-        TrainingSession mondayAdultSession = new TrainingSession(group1, coach1,
-                DayOfWeek.MONDAY, new TimeOfDay(12, 00));
+        TrainingSession mondayChildSession = new TrainingSession(group1, coach1, DayOfWeek.MONDAY, new TimeOfDay(12, 00));
+        TrainingSession mondayAdultSession = new TrainingSession(group1, coach1, DayOfWeek.MONDAY, new TimeOfDay(12, 00));
 
         timetable.addNewTrainingSession(mondayChildSession);
         timetable.addNewTrainingSession(mondayAdultSession);
@@ -188,18 +173,12 @@ public class TimetableTest {
         Group group5 = new Group("Бокс", Age.CHILD, 45);
         Group group6 = new Group("Фитнес", Age.ADULT, 60);
 
-        TrainingSession trainingSession1 = new TrainingSession(group1, coach1,
-                DayOfWeek.MONDAY, new TimeOfDay(12, 00));
-        TrainingSession trainingSession2 = new TrainingSession(group2, coach1,
-                DayOfWeek.TUESDAY, new TimeOfDay(11, 00));
-        TrainingSession trainingSession3 = new TrainingSession(group3, coach1,
-                DayOfWeek.MONDAY, new TimeOfDay(18, 00));
-        TrainingSession trainingSession4 = new TrainingSession(group4, coach2,
-                DayOfWeek.WEDNESDAY, new TimeOfDay(12, 00));
-        TrainingSession trainingSession5 = new TrainingSession(group5, coach2,
-                DayOfWeek.FRIDAY, new TimeOfDay(12, 00));
-        TrainingSession trainingSession6 = new TrainingSession(group6, coach3,
-                DayOfWeek.SATURDAY, new TimeOfDay(12, 00));
+        TrainingSession trainingSession1 = new TrainingSession(group1, coach1, DayOfWeek.MONDAY, new TimeOfDay(12, 00));
+        TrainingSession trainingSession2 = new TrainingSession(group2, coach1, DayOfWeek.TUESDAY, new TimeOfDay(11, 00));
+        TrainingSession trainingSession3 = new TrainingSession(group3, coach1, DayOfWeek.MONDAY, new TimeOfDay(18, 00));
+        TrainingSession trainingSession4 = new TrainingSession(group4, coach2, DayOfWeek.WEDNESDAY, new TimeOfDay(12, 00));
+        TrainingSession trainingSession5 = new TrainingSession(group5, coach2, DayOfWeek.FRIDAY, new TimeOfDay(12, 00));
+        TrainingSession trainingSession6 = new TrainingSession(group6, coach3, DayOfWeek.SATURDAY, new TimeOfDay(12, 00));
 
         timetable.addNewTrainingSession(trainingSession1);
         timetable.addNewTrainingSession(trainingSession2);
@@ -224,18 +203,12 @@ public class TimetableTest {
         Coach coach2 = new Coach("Иванов", "С.", "М.");
         Coach coach3 = new Coach("Петров", "Е.", "Э.");
 
-        timetable.addNewTrainingSession(new TrainingSession(new Group("Акробатика для детей", Age.CHILD,
-                60), coach3, DayOfWeek.MONDAY, new TimeOfDay(12, 00)));
-        timetable.addNewTrainingSession(new TrainingSession(new Group("Йога", Age.ADULT,
-                90), coach2, DayOfWeek.MONDAY, new TimeOfDay(12, 00)));
-        timetable.addNewTrainingSession(new TrainingSession(new Group("Кросфит", Age.CHILD,
-                45), coach2, DayOfWeek.TUESDAY, new TimeOfDay(12, 00)));
-        timetable.addNewTrainingSession(new TrainingSession(new Group("Аэробика", Age.ADULT,
-                60), coach1, DayOfWeek.WEDNESDAY, new TimeOfDay(12, 00)));
-        timetable.addNewTrainingSession(new TrainingSession(new Group("Бокс", Age.CHILD,
-                45), coach1, DayOfWeek.FRIDAY, new TimeOfDay(12, 00)));
-        timetable.addNewTrainingSession(new TrainingSession(new Group("Фитнес", Age.ADULT,
-                60), coach1, DayOfWeek.SATURDAY, new TimeOfDay(12, 00)));
+        timetable.addNewTrainingSession(new TrainingSession(new Group("Акробатика для детей", Age.CHILD, 60), coach3, DayOfWeek.MONDAY, new TimeOfDay(12, 00)));
+        timetable.addNewTrainingSession(new TrainingSession(new Group("Йога", Age.ADULT, 90), coach2, DayOfWeek.MONDAY, new TimeOfDay(12, 00)));
+        timetable.addNewTrainingSession(new TrainingSession(new Group("Кросфит", Age.CHILD, 45), coach2, DayOfWeek.TUESDAY, new TimeOfDay(12, 00)));
+        timetable.addNewTrainingSession(new TrainingSession(new Group("Аэробика", Age.ADULT, 60), coach1, DayOfWeek.WEDNESDAY, new TimeOfDay(12, 00)));
+        timetable.addNewTrainingSession(new TrainingSession(new Group("Бокс", Age.CHILD, 45), coach1, DayOfWeek.FRIDAY, new TimeOfDay(12, 00)));
+        timetable.addNewTrainingSession(new TrainingSession(new Group("Фитнес", Age.ADULT, 60), coach1, DayOfWeek.SATURDAY, new TimeOfDay(12, 00)));
 
         assertEquals("Васильев Н. С.", timetable.getCountByCoaches().get(0).getCoach().toString());
         assertEquals(3, timetable.getCountByCoaches().get(0).getСoachCount());
