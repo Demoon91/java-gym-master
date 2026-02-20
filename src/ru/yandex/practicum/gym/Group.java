@@ -25,4 +25,11 @@ public class Group {
     public int getDuration() {
         return duration;
     }
+
+    @Override
+    public String toString() {
+        return title + " " +
+                " возраст " + age +
+                " продолжительность " + duration;
+    }
 }
